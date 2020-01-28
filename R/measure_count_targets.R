@@ -1,8 +1,4 @@
 #' Check equality between `token` and tokens in `target`.
-#'
-#' @param token A character string.
-#' @param targets A vector of relevant target tokens.
-#' @return A vector of counts (a one-hot encoding).
 binary_count <- function(token, targets) {
   as.integer(targets == token)
 }
