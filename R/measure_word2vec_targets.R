@@ -1,6 +1,10 @@
 #' Compute cosine similarity between `token` and tokens in `target`.
 cosine_similarity <- function(token, targets, model) {
-  map_dbl(targets, ~ cosineSimilarity(model[[.]], model[[token]]))
+  targets %>%
+    map_dbl(
+      ~ cosineSimilarity(model[[.]], model[[token]]) %>%
+          replace_na(0)
+    )
 }
 
 #' Measure free text response as a pooled set of cosine similarity between
