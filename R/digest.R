@@ -7,38 +7,45 @@
 #' @param stat_compute A function which accepts a vector of numeric vectors
 #' (measurements) and a vector of treatment assignments ("trmt" or "ctrl") and
 #' returns an arbitrary _numeric_ test statistic.
-#' @param measure_col The name of the column in `data` which holds the measurements.
-#' @param arm_col The name of the column in `data` which holds the treatment assignments.
 #' @return A data frame containing the observed and permuted statistics, along with
 #' the associated p-value.
-digest <- function(
-  data, formula, stat_compute,
-  measure_col = measurement, arm_col = arm,
-  num_permutations = 1000
-) {
-  measure_col <- enquo(measure_col)
-  arm_col <- enquo(arm_col)
-
-  arms_all <- all.vars(formula)
-  arms_trmt <- all.vars(formula[[2]])
+digest <- function(data, formula, stat_compute, num_permutations = 1000) {
   data %>%
-    filter(!!arm_col %in% arms_all) %>%
-    mutate_at(vars(!!arm_col), ~ if_else(. %in% arms_trmt, "trmt", "ctrl")) %>%
+    set_arms(formula) %>%
     summarize(
       test = format(formula),
-      stat_observed = stat_compute(!!measure_col, !!arm_col),
+      stat_observed = stat_compute(.),
       stats_permuted = list(
         compute_permuted_stats(
-          stat_compute, !!measure_col, !!arm_col, num_permutations
+          ., stat_compute, num_permutations
         )
       ),
       p_val = map2_dbl(stat_observed, stats_permuted, compute_p_val)
     )
 }
 
+set_arms <- function(data, formula) {
+  arms_all <- all.vars(formula)
+  arms_trmt <- all.vars(formula[[2]])
+  arms_ctrl <- all.vars(formula[[3]])
+  arms_both <- intersect(arms_trmt, arms_ctrl)
+  if (length(arms_both) > 0) {
+    warning("Trial arm in both treatment and control; assigning to treatment.")
+  }
+
+  data %>%
+    filter(arm %in% arms_all) %>%
+    mutate_at(vars(arm), ~ as.integer(. %in% arms_trmt))
+}
+
 #' Compute statistic for permutations of treatment assignment.
-compute_permuted_stats <- function(stat_compute, measurements, arms, num_permutations) {
-  map_dbl(1:num_permutations, ~ stat_compute(measurements, sample(arms)))
+compute_permuted_stats <- function(data, stat_compute, num_permutations = 1000) {
+  map_dbl(
+    1:num_permutations,
+    ~ data %>%
+      mutate_at(vars(arm), sample) %>%
+      stat_compute()
+  )
 }
 
 #' Compute p-value based on permutation test statistics.
