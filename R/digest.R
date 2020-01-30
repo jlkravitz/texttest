@@ -15,7 +15,7 @@
 #' @export
 digest <- function(data, test_formula, stat_compute, num_permutations = 1000) {
   data %>%
-    set_arms(test_formula) %>%
+    set_trmt(test_formula) %>%
     dplyr::summarize(
       test = format(test_formula),
       stat_observed = stat_compute(.),
@@ -28,9 +28,10 @@ digest <- function(data, test_formula, stat_compute, num_permutations = 1000) {
     )
 }
 
-#' Filters data down to treatment arms specified in `test_formula` and mutates `arm`
-#' to be 1 if an observation is in the treatment group and 0 otherwise.
-set_arms <- function(data, test_formula) {
+#' Filters data down to treatment arms specified in `test_formula` and sets
+#' column `trmt` to a logical, specifying if the observation is from the treatment
+#' or control group.
+set_trmt <- function(data, test_formula) {
   arms_all <- all.vars(test_formula)
   arms_trmt <- all.vars(test_formula[[2]])
   arms_ctrl <- all.vars(test_formula[[3]])
@@ -41,7 +42,7 @@ set_arms <- function(data, test_formula) {
 
   data %>%
     dplyr::filter(arm %in% arms_all) %>%
-    dplyr::mutate_at(dplyr::vars(arm), ~ as.integer(. %in% arms_trmt))
+    dplyr::mutate(trmt = arm %in% arms_trmt)
 }
 
 #' Compute statistic for permutations of treatment assignment.
@@ -49,7 +50,7 @@ compute_permuted_stats <- function(data, stat_compute, num_permutations = 1000) 
   purrr::map_dbl(
     1:num_permutations,
     ~ data %>%
-      dplyr::mutate_at(dplyr::vars(arm), sample) %>%
+      dplyr::mutate_at(dplyr::vars(trmt), sample) %>%
       stat_compute()
   )
 }

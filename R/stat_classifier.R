@@ -2,12 +2,15 @@
 #' of a classifier trained on measurements to predict treatment arm.
 #' @export
 stat_classifier <- function(data) {
-  data <- spread_measurements(data)
+  data <-
+    spread_measurements(data) %>%
+    mutate(trmt = as.integer(trmt))
+
   Concordance(
     data$arm,
     predict(
       suppressWarnings(
-        glm(arm ~ ., data = data, family = binomial(link = "logit"))
+        glm(trmt ~ ., data = data, family = binomial(link = "logit"))
       ),
       type = "response"
     )
