@@ -1,3 +1,5 @@
+#' Mean difference test statistic.
+#' @export
 stat_summed_mean_difference <- function(data) {
   data %>%
     mutate_at(vars(measurement), map_dbl, sum) %>%

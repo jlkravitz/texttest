@@ -61,7 +61,6 @@ build_measure <- function(token, token_measure, token_pool) {
 #' This is a common function for pooling token measurements.
 #'
 #' @return The sum of all input vectors.
-#' @example pool_measured_tokens(tokens, sum_list)
 #' @export
 sum_list <- function(vectors) {
   reduce(vectors, `+`)
@@ -72,7 +71,6 @@ sum_list <- function(vectors) {
 #' This is a common function for pooling token measurements.
 #'
 #' @return The element-wise maximum of all input vectors.
-#' @example pool_measured_tokens(tokens, pmax_list)
 #' @export
 pmax_list <- function(vectors) {
   reduce(vectors, pmax, na.rm = TRUE)

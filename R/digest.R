@@ -1,19 +1,23 @@
 #' Digest response measurements into observed statistic, permuted statistics,
 #' and a p-value.
 #'
-#' @param data A data frame with columns specified by `measure_col` and `arm_col`.
-#' @param formula A formula specifying groups to compare. The left-hand side is
-#' considered the treatment.
-#' @param stat_compute A function which accepts a vector of numeric vectors
-#' (measurements) and a vector of treatment assignments ("trmt" or "ctrl") and
-#' returns an arbitrary _numeric_ test statistic.
+#' @param data A data frame with columns `arm` and `measurement`. The column
+#' `arm` should be a character column, specifying which treatment arm the
+#' particular observation is in. The column `measurement` should be a list
+#' column, and each measurement should be a numeric vector.
+#' @param test_formula A formula specifying treatment arms to compare. The left-hand
+#' side is considered the treatment, the right-hand side the control.
+#' @param stat_compute A function which accepts a data frame (with the same
+#' specifications as those of `data`) and returns an arbitrary _numeric_ test
+#' statistic.
 #' @return A data frame containing the observed and permuted statistics, along with
-#' the associated p-value.
-digest <- function(data, formula, stat_compute, num_permutations = 1000) {
+#' their associated p-value.
+#' @export
+digest <- function(data, test_formula, stat_compute, num_permutations = 1000) {
   data %>%
-    set_arms(formula) %>%
+    set_arms(test_formula) %>%
     summarize(
-      test = format(formula),
+      test = format(test_formula),
       stat_observed = stat_compute(.),
       stats_permuted = list(
         compute_permuted_stats(
@@ -24,10 +28,12 @@ digest <- function(data, formula, stat_compute, num_permutations = 1000) {
     )
 }
 
-set_arms <- function(data, formula) {
-  arms_all <- all.vars(formula)
-  arms_trmt <- all.vars(formula[[2]])
-  arms_ctrl <- all.vars(formula[[3]])
+#' Filters data down to treatment arms specified in `test_formula` and mutates `arm`
+#' to be 1 if an observation is in the treatment group and 0 otherwise.
+set_arms <- function(data, test_formula) {
+  arms_all <- all.vars(test_formula)
+  arms_trmt <- all.vars(test_formula[[2]])
+  arms_ctrl <- all.vars(test_formula[[3]])
   arms_both <- intersect(arms_trmt, arms_ctrl)
   if (length(arms_both) > 0) {
     warning("Trial arm in both treatment and control; assigning to treatment.")

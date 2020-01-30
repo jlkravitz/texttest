@@ -1,14 +1,8 @@
+#' Classifier test statistic which returns the concordance (C-statistic, AUC, etc.)
+#' of a classifier trained on measurements to predict treatment arm.
+#' @export
 stat_classifier <- function(data) {
-  data <-
-    data %>%
-    mutate(id = row_number()) %>%
-    unnest(measurement) %>%
-    group_by(id) %>%
-    mutate(col_name = seq_along(id)) %>%
-    ungroup() %>%
-    pivot_wider(names_from = col_name, values_from = "measurement") %>%
-    select(-id)
-
+  data <- spread_measurements(data)
   Concordance(
     data$arm,
     predict(
