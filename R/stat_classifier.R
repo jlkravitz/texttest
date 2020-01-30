@@ -4,7 +4,7 @@
 stat_classifier <- function(data) {
   data <-
     spread_measurements(data) %>%
-    mutate(trmt = as.integer(trmt))
+    dplyr::mutate(trmt = as.integer(trmt))
 
   Concordance(
     data$arm,

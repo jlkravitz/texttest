@@ -7,7 +7,7 @@
 spread_measurements <- function(data) {
   data %>%
     dplyr::mutate(id = dplyr::row_number()) %>%
-    dplyr::unnest(measurement) %>%
+    tidyr::unnest(measurement) %>%
     dplyr::group_by(id) %>%
     dplyr::mutate(col_name = seq_along(id)) %>%
     dplyr::ungroup() %>%

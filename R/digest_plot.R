@@ -4,7 +4,7 @@
 #' frame should have columns `test`, `stat_observed`, `stats_permuted`, and `p_val`.
 #' @return A ggplot plot object.
 #' @export
-digest_plot <- function(data) {
+digest_plot <- function(data, binwidth = 0.05) {
   histogram_data <-
     data %>%
     dplyr::select(test, stats_permuted) %>%
@@ -15,7 +15,7 @@ digest_plot <- function(data) {
     ggplot2::geom_histogram(
       ggplot2::aes(stats_permuted),
       data = histogram_data,
-      binwidth = 0.05
+      binwidth = binwidth
     ) +
     ggplot2::geom_vline(
       ggplot2::aes(xintercept = stat_observed),
