@@ -4,16 +4,23 @@
 \alias{measure}
 \title{Measure response text as a numeric vector.}
 \usage{
-measure(data, cols, measure_response, ...)
+measure(data, cols, response_measure, ...)
 }
 \arguments{
 \item{data}{An arbitrary data frame.}
 
 \item{cols}{A list of columns in `data` (must be character columns).}
 
-\item{measure_response}{A function which accepts a vector of strings and returns
-a vector of numeric vectors (each its own text measurement).}
+\item{response_measure}{A function which accepts string and returns a numeric
+measurement vector.}
+}
+\value{
+A data frame where each column in `cols` is now a list column of
+text measurements. If `cols` is only of length 1, the column is renamed
+`measurement`. Calling `pool` in this case is not necessary, and since `pool`
+generates a final pooled measurement column called `measurement` for use by
+`digest`, we rename this column accordingly here.
 }
 \description{
-Measure response text as a numeric vector.
+If `measure`
 }

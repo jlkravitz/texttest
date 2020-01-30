@@ -9,12 +9,12 @@ measure_tokens(tokens, token_measure, ...)
 \arguments{
 \item{tokens}{A tibble of tokens in the format returned by `split_tokens`.}
 
-\item{measure_token}{A function which accepts a token (along with
-additional parameters in `...`) and returns a numeric vector.}
+\item{token_measure}{A function which accepts a token (along with
+additional parameters in `...`) and returns a numeric measurement vector.}
 }
 \value{
 A tibble, as returned by `split_tokens`, along with a new column
-`measurement`, as returned by `measure_token_fn` for each token.
+`measurement`, as returned by `token_measure` for each token.
 }
 \description{
 Measure tokens using the given function.

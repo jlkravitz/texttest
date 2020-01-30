@@ -1,5 +1,5 @@
 Package: texttest
-Title: What the Package Does (One Line, Title Case)
+Title: A Causal Framework for Free Text
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Joshua",
@@ -7,11 +7,14 @@ Authors@R:
            role = c("aut", "cre"),
            email = "kravitzj@stanford.edu",
            comment = c(ORCID = "0000-0002-7765-5596"))
-Description: What the package does (one paragraph).
+Description: A causal framework for free text in R.
 License: What license it uses
 Encoding: UTF-8
 LazyData: true
 Imports:
   tidyverse,
-  tidytext
+  modelr,
+  tidytext,
+  InformationValue,
+  wordVectors
 RoxygenNote: 7.0.2

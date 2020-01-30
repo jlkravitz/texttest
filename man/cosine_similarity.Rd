@@ -6,14 +6,6 @@
 \usage{
 cosine_similarity(token, targets, model)
 }
-\arguments{
-\item{token}{A character string.}
-
-\item{targets}{A vector of relevant target tokens.}
-}
-\value{
-A vector of cosine similarities.
-}
 \description{
 Compute cosine similarity between `token` and tokens in `target`.
 }

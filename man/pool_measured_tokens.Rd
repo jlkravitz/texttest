@@ -9,12 +9,11 @@ pool_measured_tokens(tokens, token_pool)
 \arguments{
 \item{tokens}{A tibble of tokens and measurements as returned by `measure_tokens`.}
 
-\item{pool_token_fn}{A function which accepts a list of token measurements
+\item{token_pool}{A function which accepts a list of token measurements
 and returns a numeric vector representing a single response measurement.}
 }
 \value{
-A vector of numeric vectors, each representing a pooled measurement
-for a particular response.
+A single pooled response measurement.
 }
 \description{
 Pool token measurements into a single response measurement.

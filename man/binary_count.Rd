@@ -6,14 +6,6 @@
 \usage{
 binary_count(token, targets)
 }
-\arguments{
-\item{token}{A character string.}
-
-\item{targets}{A vector of relevant target tokens.}
-}
-\value{
-A vector of counts (a one-hot encoding).
-}
 \description{
 Check equality between `token` and tokens in `target`.
 }

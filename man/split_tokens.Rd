@@ -2,18 +2,17 @@
 % Please edit documentation in R/measure_utils.R
 \name{split_tokens}
 \alias{split_tokens}
-\title{Split each response into tokens.}
+\title{Split response into tokens.}
 \usage{
-split_tokens(responses, ...)
+split_tokens(response, ...)
 }
 \arguments{
-\item{responses}{A vector of character strings.}
+\item{response}{A vector of character strings.}
 }
 \value{
-A tibble with a column indicating the index of the response from
-which the token originates, along with the token itself.
+A tibble with a column of tokens parsed from `response`.
 }
 \description{
 Most of the work is done by `unnest_tokens` from the tidytext package.
-By default, this splits responses into words.
+By default, this splits the response into words.
 }
