@@ -34,7 +34,7 @@ measure_tokens <- function(tokens, token_measure, ...) {
 #' @export
 pool_measured_tokens <- function(tokens, token_pool) {
   tokens %>%
-    dplry::pull(measurement) %>%
+    dplyr::pull(measurement) %>%
     token_pool()
 }
 
