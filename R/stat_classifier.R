@@ -6,7 +6,7 @@ stat_classifier <- function(data) {
     spread_measurements(data) %>%
     dplyr::mutate(trmt = as.integer(trmt))
 
-  Concordance(
+  InformationValue::Concordance(
     data$arm,
     predict(
       suppressWarnings(
