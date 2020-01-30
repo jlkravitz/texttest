@@ -13,7 +13,8 @@
 #' `digest`, we rename this column accordingly here.
 #' @export
 measure <- function(data, cols, response_measure, ...) {
-  data %<>%
+  data <-
+    data %>%
     mutate_at(cols, . %>% map(response_measure, ...))
 
   # If `cols` is only of length 1, then pooling measurements together is not
@@ -21,9 +22,9 @@ measure <- function(data, cols, response_measure, ...) {
   # pooled measurement column called `measurement`; we rename the column
   # accordingly.
   if (length(cols) == 1) {
-    data %<>%
+    data %>%
       rename_at(cols, ~ "measurement")
+  } else {
+    data
   }
-
-  data
 }
