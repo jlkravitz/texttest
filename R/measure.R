@@ -15,7 +15,7 @@
 measure <- function(data, cols, response_measure, ...) {
   data <-
     data %>%
-    mutate_at(cols, . %>% map(response_measure, ...))
+    dplyr::mutate_at(cols, . %>% purrr::map(response_measure, ...))
 
   # If `cols` is only of length 1, then pooling measurements together is not
   # required. The end-user will thus not call `pool`, which generates a final
@@ -23,7 +23,7 @@ measure <- function(data, cols, response_measure, ...) {
   # accordingly.
   if (length(cols) == 1) {
     data %>%
-      rename_at(cols, ~ "measurement")
+      dplyr::rename_at(cols, ~ "measurement")
   } else {
     data
   }

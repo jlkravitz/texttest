@@ -6,11 +6,11 @@
 #' @export
 spread_measurements <- function(data) {
   data %>%
-    mutate(id = row_number()) %>%
-    unnest(measurement) %>%
-    group_by(id) %>%
-    mutate(col_name = seq_along(id)) %>%
-    ungroup() %>%
-    pivot_wider(names_from = col_name, values_from = "measurement") %>%
-    select(-id)
+    dplyr::mutate(id = dplyr::row_number()) %>%
+    dplyr::unnest(measurement) %>%
+    dplyr::group_by(id) %>%
+    dplyr::mutate(col_name = seq_along(id)) %>%
+    dplyr::ungroup() %>%
+    tidyr::pivot_wider(names_from = col_name, values_from = "measurement") %>%
+    dplyr::select(-id)
 }

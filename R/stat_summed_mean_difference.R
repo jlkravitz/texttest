@@ -2,7 +2,7 @@
 #' @export
 stat_summed_mean_difference <- function(data) {
   data %>%
-    mutate_at(vars(measurement), map_dbl, sum) %>%
-    summarize(measurement[arm] - mean(measurement[1 - arm])) %>%
-    pull()
+    dplyr::mutate_at(dplyr::vars(measurement), purrr::map_dbl, sum) %>%
+    dplyr::summarize(measurement[arm] - mean(measurement[1 - arm])) %>%
+    dplyr::pull()
 }

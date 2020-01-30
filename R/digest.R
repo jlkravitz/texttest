@@ -16,7 +16,7 @@
 digest <- function(data, test_formula, stat_compute, num_permutations = 1000) {
   data %>%
     set_arms(test_formula) %>%
-    summarize(
+    dplyr::summarize(
       test = format(test_formula),
       stat_observed = stat_compute(.),
       stats_permuted = list(
@@ -24,7 +24,7 @@ digest <- function(data, test_formula, stat_compute, num_permutations = 1000) {
           ., stat_compute, num_permutations
         )
       ),
-      p_val = map2_dbl(stat_observed, stats_permuted, compute_p_val)
+      p_val = purrr::map2_dbl(stat_observed, stats_permuted, compute_p_val)
     )
 }
 
@@ -34,22 +34,22 @@ set_arms <- function(data, test_formula) {
   arms_all <- all.vars(test_formula)
   arms_trmt <- all.vars(test_formula[[2]])
   arms_ctrl <- all.vars(test_formula[[3]])
-  arms_both <- intersect(arms_trmt, arms_ctrl)
+  arms_both <- dplyr::intersect(arms_trmt, arms_ctrl)
   if (length(arms_both) > 0) {
     warning("Trial arm in both treatment and control; assigning to treatment.")
   }
 
   data %>%
-    filter(arm %in% arms_all) %>%
-    mutate_at(vars(arm), ~ as.integer(. %in% arms_trmt))
+    dplyr::filter(arm %in% arms_all) %>%
+    dplyr::mutate_at(dplyr::vars(arm), ~ as.integer(. %in% arms_trmt))
 }
 
 #' Compute statistic for permutations of treatment assignment.
 compute_permuted_stats <- function(data, stat_compute, num_permutations = 1000) {
-  map_dbl(
+  purrr::map_dbl(
     1:num_permutations,
     ~ data %>%
-      mutate_at(vars(arm), sample) %>%
+      dplyr::mutate_at(dplyr::vars(arm), sample) %>%
       stat_compute()
   )
 }

@@ -8,8 +8,8 @@
 #' @export
 split_tokens <- function(response, ...) {
   response %>%
-    enframe(name = NULL, value = "response") %>%
-    unnest_tokens(token, response, ...)
+    tibble::enframe(name = NULL, value = "response") %>%
+    tidytext::unnest_tokens(token, response, ...)
 }
 
 #' Measure tokens using the given function.
@@ -22,7 +22,7 @@ split_tokens <- function(response, ...) {
 #' @export
 measure_tokens <- function(tokens, token_measure, ...) {
   tokens %>%
-    mutate(measurement = map(token, token_measure, ...))
+    dplyr::mutate(measurement = map(token, token_measure, ...))
 }
 
 #' Pool token measurements into a single response measurement.
@@ -34,7 +34,7 @@ measure_tokens <- function(tokens, token_measure, ...) {
 #' @export
 pool_measured_tokens <- function(tokens, token_pool) {
   tokens %>%
-    pull(measurement) %>%
+    dplry::pull(measurement) %>%
     token_pool()
 }
 
@@ -63,7 +63,7 @@ build_measure <- function(token, token_measure, token_pool) {
 #' @return The sum of all input vectors.
 #' @export
 sum_list <- function(vectors) {
-  reduce(vectors, `+`)
+  purrr::reduce(vectors, `+`)
 }
 
 #' Take element-wise maximum of list of vectors.
@@ -73,5 +73,5 @@ sum_list <- function(vectors) {
 #' @return The element-wise maximum of all input vectors.
 #' @export
 pmax_list <- function(vectors) {
-  reduce(vectors, pmax, na.rm = TRUE)
+  purrr::reduce(vectors, pmax, na.rm = TRUE)
 }

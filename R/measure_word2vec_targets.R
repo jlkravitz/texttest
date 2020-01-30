@@ -1,7 +1,7 @@
 #' Compute cosine similarity between `token` and tokens in `target`.
 cosine_similarity <- function(token, targets, model) {
   targets %>%
-    map_dbl(
+    purrr::map_dbl(
       ~ cosineSimilarity(model[[.]], model[[token]]) %>%
           replace_na(0)
     )

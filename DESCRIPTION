@@ -12,9 +12,14 @@ License: What license it uses
 Encoding: UTF-8
 LazyData: true
 Imports:
-  tidyverse,
-  modelr,
-  tidytext,
+  dplyr,
+  ggplot2,
   InformationValue,
+  modelr,
+  purrr,
+  stringr,
+  tibble,
+  tidyr,
+  tidytext,
   wordVectors
 RoxygenNote: 7.0.2

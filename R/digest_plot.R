@@ -6,13 +6,24 @@
 digest_plot <- function(data) {
   histogram_data <-
     data %>%
-    select(test, stats_permuted) %>%
-    unnest(stats_permuted)
+    dplyr::select(test, stats_permuted) %>%
+    dplyr::unnest(stats_permuted)
 
   data %>%
-    ggplot() +
-    geom_histogram(aes(stats_permuted), data = histogram_data, binwidth = 0.05) +
-    geom_vline(aes(xintercept = stat_observed), color = "red") +
-    geom_text(aes(label = str_c("p = ", p_val)), x = Inf, y = Inf, vjust = 1.5, hjust = 1.5) +
-    facet_wrap(vars(test))
+    ggplot2::ggplot() +
+    ggplot2::geom_histogram(
+      ggplot2::aes(stats_permuted),
+      data = histogram_data,
+      binwidth = 0.05
+    ) +
+    ggplot2::geom_vline(
+      ggplot2::aes(xintercept = stat_observed),
+      color = "red"
+    ) +
+    ggplot2::geom_text(
+      ggplot2::aes(label = stringr::str_c("p = ", p_val)),
+      x = Inf, y = Inf,
+      vjust = 1.5, hjust = 1.5
+    ) +
+    ggplot2::facet_wrap(dplyr::vars(test))
 }
