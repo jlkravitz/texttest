@@ -8,7 +8,7 @@ digest_plot <- function(data) {
   histogram_data <-
     data %>%
     dplyr::select(test, stats_permuted) %>%
-    dplyr::unnest(stats_permuted)
+    tidyr::unnest(stats_permuted)
 
   data %>%
     ggplot2::ggplot() +
