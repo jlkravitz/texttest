@@ -2,6 +2,7 @@
 
 export(build_measure)
 export(digest)
+export(digest_plot)
 export(measure)
 export(measure_count_targets)
 export(measure_tokens)
