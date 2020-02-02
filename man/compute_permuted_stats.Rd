@@ -2,10 +2,12 @@
 % Please edit documentation in R/digest.R
 \name{compute_permuted_stats}
 \alias{compute_permuted_stats}
-\title{Compute statistic for permutations of treatment assignment.}
+\title{Compute statistic for permutations of treatment assignment.
+i}
 \usage{
 compute_permuted_stats(data, stat_compute, num_permutations = 1000)
 }
 \description{
 Compute statistic for permutations of treatment assignment.
+i
 }

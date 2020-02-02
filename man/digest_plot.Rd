@@ -4,7 +4,7 @@
 \alias{digest_plot}
 \title{Plot permutation test data returned by `digest`.}
 \usage{
-digest_plot(data)
+digest_plot(data, binwidth = 0.05)
 }
 \arguments{
 \item{data}{A data frame, as returned by `digest`. At a minimum, this data

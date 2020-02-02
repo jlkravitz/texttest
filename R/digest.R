@@ -12,25 +12,31 @@
 #' statistic.
 #' @return A data frame containing the observed and permuted statistics, along with
 #' their associated p-value.
+#' @importFrom rlang .data
 #' @export
 digest <- function(data, test_formula, stat_compute, num_permutations = 1000) {
   data %>%
     set_trmt(test_formula) %>%
     dplyr::summarize(
       test = format(test_formula),
-      stat_observed = stat_compute(.),
+      stat_observed = stat_compute(.data$.),
       stats_permuted = list(
         compute_permuted_stats(
-          ., stat_compute, num_permutations
+          .data$., stat_compute, num_permutations
         )
       ),
-      p_val = purrr::map2_dbl(stat_observed, stats_permuted, compute_p_val)
+      p_val = purrr::map2_dbl(
+        .data$stat_observed,
+        .data$stats_permuted,
+        .data$compute_p_val
+      )
     )
 }
 
 #' Filters data down to treatment arms specified in `test_formula` and sets
 #' column `trmt` to a logical, specifying if the observation is from the treatment
 #' or control group.
+#' @importFrom rlang .data
 set_trmt <- function(data, test_formula) {
   arms_all <- all.vars(test_formula)
   arms_trmt <- all.vars(test_formula[[2]])
@@ -41,16 +47,18 @@ set_trmt <- function(data, test_formula) {
   }
 
   data %>%
-    dplyr::filter(arm %in% arms_all) %>%
-    dplyr::mutate(trmt = arm %in% arms_trmt)
+    dplyr::filter(.data$arm %in% arms_all) %>%
+    dplyr::mutate(trmt = .data$arm %in% arms_trmt)
 }
 
 #' Compute statistic for permutations of treatment assignment.
+#' i
+#' @importFrom rlang .data
 compute_permuted_stats <- function(data, stat_compute, num_permutations = 1000) {
   purrr::map_dbl(
     1:num_permutations,
     ~ data %>%
-      dplyr::mutate_at(dplyr::vars(trmt), sample) %>%
+      dplyr::mutate_at(dplyr::vars(.data$trmt), .data$sample) %>%
       stat_compute()
   )
 }

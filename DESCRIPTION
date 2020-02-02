@@ -8,18 +8,20 @@ Authors@R:
            email = "kravitzj@stanford.edu",
            comment = c(ORCID = "0000-0002-7765-5596"))
 Description: A causal framework for free text in R.
-License: What license it uses
+License: MIT
 Encoding: UTF-8
 LazyData: true
 Imports:
   dplyr,
   ggplot2,
   InformationValue,
+  magrittr,
   modelr,
   purrr,
+  rlang,
   stringr,
   tibble,
   tidyr,
   tidytext,
-  wordVectors
+  wordVectors,
 RoxygenNote: 7.0.2

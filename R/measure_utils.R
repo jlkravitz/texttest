@@ -9,7 +9,7 @@
 split_tokens <- function(response, ...) {
   response %>%
     tibble::enframe(name = NULL, value = "response") %>%
-    tidytext::unnest_tokens(token, response, ...)
+    tidytext::unnest_tokens(.data$token, response, ...)
 }
 
 #' Measure tokens using the given function.
@@ -19,10 +19,11 @@ split_tokens <- function(response, ...) {
 #' additional parameters in `...`) and returns a numeric measurement vector.
 #' @return A tibble, as returned by `split_tokens`, along with a new column
 #' `measurement`, as returned by `token_measure` for each token.
+#' @importFrom rlang .data
 #' @export
 measure_tokens <- function(tokens, token_measure, ...) {
   tokens %>%
-    dplyr::mutate(measurement = map(token, token_measure, ...))
+    dplyr::mutate(measurement = purrr::map(.data$token, token_measure, ...))
 }
 
 #' Pool token measurements into a single response measurement.
@@ -31,10 +32,11 @@ measure_tokens <- function(tokens, token_measure, ...) {
 #' @param token_pool A function which accepts a list of token measurements
 #' and returns a numeric vector representing a single response measurement.
 #' @return A single pooled response measurement.
+#' @importFrom rlang .data
 #' @export
 pool_measured_tokens <- function(tokens, token_pool) {
   tokens %>%
-    dplyr::pull(measurement) %>%
+    dplyr::pull(.data$measurement) %>%
     token_pool()
 }
 
