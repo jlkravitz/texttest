@@ -23,23 +23,16 @@ digest <- function(data, test_formula, stat_compute, num_permutations = 1000) {
 
 #' @importFrom rlang .data
 digest_ <- function(test_formula, data, stat_compute, num_permutations) {
-  data %>%
-    set_trmt(test_formula) %>%
+  data <- set_trmt(data, test_formula)
 
-    dplyr::summarize(
-      test = format(test_formula),
-      stat_observed = stat_compute(.data$.),
-      stats_permuted = list(
-        compute_permuted_stats(
-          .data$., stat_compute, num_permutations
-        )
-      ),
-      p_val = purrr::map2_dbl(
-        .data$stat_observed,
-        .data$stats_permuted,
-        .data$compute_p_val
-      )
-    )
+  tibble(
+    test = format(test_formula),
+    stat_observed = stat_compute(data),
+    stats_permuted =
+      compute_permuted_stats(data, stat_compute, num_permutations) %>%
+        list(),
+    p_val = compute_p_val(stat_observed, stats_permuted[[1]])
+  )
 }
 
 #' Filters data down to treatment arms specified in `test_formula` and sets
@@ -67,7 +60,7 @@ compute_permuted_stats <- function(data, stat_compute, num_permutations = 1000) 
   purrr::map_dbl(
     1:num_permutations,
     ~ data %>%
-      dplyr::mutate_at(dplyr::vars(.data$trmt), .data$sample) %>%
+      dplyr::mutate_at(dplyr::vars(.data$trmt), sample) %>%
       stat_compute()
   )
 }
