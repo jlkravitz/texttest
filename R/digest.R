@@ -12,11 +12,20 @@
 #' statistic.
 #' @return A data frame containing the observed and permuted statistics, along with
 #' their associated p-value.
-#' @importFrom rlang .data
 #' @export
 digest <- function(data, test_formula, stat_compute, num_permutations = 1000) {
+  if (is.list(test_formula)) {
+    purrr::map_dfr(test_formula, digest_, data, stat_compute, num_permutations)
+  } else {
+    digest_(test_formula, data, stat_compute, num_permutations)
+  }
+}
+
+#' @importFrom rlang .data
+digest_ <- function(test_formula, data, stat_compute, num_permutations) {
   data %>%
     set_trmt(test_formula) %>%
+
     dplyr::summarize(
       test = format(test_formula),
       stat_observed = stat_compute(.data$.),
