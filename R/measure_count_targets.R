@@ -1,9 +1,11 @@
-#' Check equality between `token` and tokens in `target`.
+# Check equality between `token` and tokens in `target`.
 binary_count <- function(token, targets) {
   as.integer(targets == token)
 }
 
 #' Measure free text response as a pooled set of target token counts.
+#' @param response String to measure.
+#' @param targets Target words to consider in measuring `response`.
 #' @export
 measure_count_targets <- function(response, targets) {
   build_measure(

@@ -1,4 +1,4 @@
-#' Compute cosine similarity between `token` and tokens in `target`.
+# Compute cosine similarity between `token` and tokens in `target`.
 cosine_similarity <- function(token, targets, model) {
   targets %>%
     purrr::map_dbl(
@@ -9,6 +9,8 @@ cosine_similarity <- function(token, targets, model) {
 
 #' Measure free text response as a pooled set of cosine similarity between
 #' response words and target words.
+#' @param model Word2Vec model, which maps words to numeric vectors.
+#' @inheritParams measure_count_targets
 #' @export
 measure_word2vec_targets <- function(response, targets, model) {
   build_measure(

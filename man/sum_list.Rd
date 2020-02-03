@@ -6,6 +6,9 @@
 \usage{
 sum_list(vectors)
 }
+\arguments{
+\item{vectors}{A list of numeric vectors.}
+}
 \value{
 The sum of all input vectors.
 }

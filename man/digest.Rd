@@ -19,6 +19,9 @@ side is considered the treatment, the right-hand side the control.}
 \item{stat_compute}{A function which accepts a data frame (with the same
 specifications as those of `data`) and returns an arbitrary _numeric_ test
 statistic.}
+
+\item{num_permutations}{The number of permutations of the treatment arm to
+perform for the permutation test.}
 }
 \value{
 A data frame containing the observed and permuted statistics, along with

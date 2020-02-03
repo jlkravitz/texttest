@@ -7,6 +7,9 @@ of a classifier trained on measurements to predict treatment arm.}
 \usage{
 stat_classifier(data)
 }
+\arguments{
+\item{data}{A data frame which contains columns `trmt` and `measurement`.}
+}
 \description{
 Classifier test statistic which returns the concordance (C-statistic, AUC, etc.)
 of a classifier trained on measurements to predict treatment arm.

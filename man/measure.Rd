@@ -13,6 +13,8 @@ measure(data, cols, response_measure, ...)
 
 \item{response_measure}{A function which accepts string and returns a numeric
 measurement vector.}
+
+\item{...}{Additional parameters passed to `response_measure`.}
 }
 \value{
 A data frame where each column in `cols` is now a list column of

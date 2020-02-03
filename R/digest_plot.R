@@ -3,6 +3,7 @@
 #' @param data A data frame, as returned by `digest`. At a minimum, this data
 #' frame should have columns `test`, `stat_observed`, `stats_permuted`, and `p_val`.
 #' @return A ggplot plot object.
+#' @inheritParams ggplot2::geom_histogram
 #' @importFrom rlang .data
 #' @export
 digest_plot <- function(data, binwidth = 0.05) {

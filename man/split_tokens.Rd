@@ -8,6 +8,8 @@ split_tokens(response, ...)
 }
 \arguments{
 \item{response}{A vector of character strings.}
+
+\item{...}{Additional parameters passed to `tidytext::unnest_tokens`.}
 }
 \value{
 A tibble with a column of tokens parsed from `response`.

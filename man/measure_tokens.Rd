@@ -11,6 +11,8 @@ measure_tokens(tokens, token_measure, ...)
 
 \item{token_measure}{A function which accepts a token (along with
 additional parameters in `...`) and returns a numeric measurement vector.}
+
+\item{...}{Additional parameters to pass to `token_measure`.}
 }
 \value{
 A tibble, as returned by `split_tokens`, along with a new column

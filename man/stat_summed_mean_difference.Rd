@@ -6,6 +6,9 @@
 \usage{
 stat_summed_mean_difference(data)
 }
+\arguments{
+\item{data}{A data frame which contains columns `trmt` and `measurement`.}
+}
 \description{
 Mean difference test statistic.
 }

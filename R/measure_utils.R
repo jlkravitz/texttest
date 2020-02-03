@@ -4,6 +4,7 @@
 #' By default, this splits the response into words.
 #'
 #' @param response A vector of character strings.
+#' @param ... Additional parameters passed to `tidytext::unnest_tokens`.
 #' @return A tibble with a column of tokens parsed from `response`.
 #' @export
 split_tokens <- function(response, ...) {
@@ -17,6 +18,7 @@ split_tokens <- function(response, ...) {
 #' @param tokens A tibble of tokens in the format returned by `split_tokens`.
 #' @param token_measure A function which accepts a token (along with
 #' additional parameters in `...`) and returns a numeric measurement vector.
+#' @param ... Additional parameters to pass to `token_measure`.
 #' @return A tibble, as returned by `split_tokens`, along with a new column
 #' `measurement`, as returned by `token_measure` for each token.
 #' @importFrom rlang .data
@@ -62,6 +64,7 @@ build_measure <- function(token, token_measure, token_pool) {
 #'
 #' This is a common function for pooling token measurements.
 #'
+#' @param vectors A list of numeric vectors.
 #' @return The sum of all input vectors.
 #' @export
 sum_list <- function(vectors) {
@@ -72,6 +75,7 @@ sum_list <- function(vectors) {
 #'
 #' This is a common function for pooling token measurements.
 #'
+#' @inheritParams sum_list
 #' @return The element-wise maximum of all input vectors.
 #' @export
 pmax_list <- function(vectors) {

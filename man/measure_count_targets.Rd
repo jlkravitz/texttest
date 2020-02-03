@@ -6,6 +6,11 @@
 \usage{
 measure_count_targets(response, targets)
 }
+\arguments{
+\item{response}{String to measure.}
+
+\item{targets}{Target words to consider in measuring `response`.}
+}
 \description{
 Measure free text response as a pooled set of target token counts.
 }

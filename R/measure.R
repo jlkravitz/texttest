@@ -6,6 +6,7 @@
 #' @param cols A list of columns in `data` (must be character columns).
 #' @param response_measure A function which accepts string and returns a numeric
 #' measurement vector.
+#' @param ... Additional parameters passed to `response_measure`.
 #' @return A data frame where each column in `cols` is now a list column of
 #' text measurements. If `cols` is only of length 1, the column is renamed
 #' `measurement`. Calling `pool` in this case is not necessary, and since `pool`

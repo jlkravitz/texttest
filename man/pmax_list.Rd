@@ -6,6 +6,9 @@
 \usage{
 pmax_list(vectors)
 }
+\arguments{
+\item{vectors}{A list of numeric vectors.}
+}
 \value{
 The element-wise maximum of all input vectors.
 }
