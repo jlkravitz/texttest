@@ -22,6 +22,5 @@ Imports:
   stringr,
   tibble,
   tidyr,
-  tidytext,
-  wordVectors,
+  tidytext
 RoxygenNote: 7.0.2
