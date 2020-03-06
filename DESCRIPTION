@@ -18,9 +18,16 @@ Imports:
   magrittr,
   modelr,
   purrr,
+  reticulate,
   rlang,
   stringr,
   tibble,
   tidyr,
   tidytext
+Config/reticulate:
+  list(
+    packages = list(
+      list(package = "pymagnitude", pip = TRUE)
+    )
+  )
 RoxygenNote: 7.0.2

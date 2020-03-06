@@ -5,14 +5,14 @@
 \title{Measure free text response as a pooled set of cosine similarity between
 response words and target words.}
 \usage{
-measure_word2vec_targets(response, targets, model)
+measure_word2vec_targets(response, targets, model_file)
 }
 \arguments{
 \item{response}{String to measure.}
 
 \item{targets}{Target words to consider in measuring `response`.}
 
-\item{model}{Word2Vec model, which maps words to numeric vectors.}
+\item{model_file}{The path to the Magnitude word embedding model file.}
 }
 \description{
 Measure free text response as a pooled set of cosine similarity between
