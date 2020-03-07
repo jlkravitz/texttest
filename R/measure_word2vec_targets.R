@@ -2,7 +2,7 @@
 cosine_similarity <- function(token, targets, embeddings) {
   compute <- function(target) {
     if_else(
-      embeddings$`__contains__`(target) & embeddings$`__contains__`(token),
+      embeddings$`__contains__`(target) & embeddings$`__contains__`(token) & !("georgian" %in% c(token, target)),
       embeddings$similarity(target, token),
       0
     )
