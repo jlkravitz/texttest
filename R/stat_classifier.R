@@ -6,7 +6,7 @@
 stat_classifier <- function(data) {
   data <-
     data %>%
-    dplyr::select(.data$trmt, .data$measurement) %>%
+    select(trmt, measurement) %>%
     spread_measurements() %>%
     dplyr::mutate(trmt = as.integer(.data$trmt))
 
