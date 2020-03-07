@@ -23,6 +23,11 @@ Imports:
   stringr,
   tibble,
   tidyr,
-  tidytext,
-  wordVectors,
+  tidytext
+Config/reticulate:
+  list(
+    packages = list(
+      list(package = "pymagnitude", pip = TRUE)
+    )
+  )
 RoxygenNote: 7.0.2
