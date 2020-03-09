@@ -2,7 +2,7 @@
 % Please edit documentation in R/measure_utils.R
 \name{measure_tokens}
 \alias{measure_tokens}
-\title{Measure tokens using the given function.}
+\title{Measure tokens using the given token measurement function.}
 \usage{
 measure_tokens(tokens, token_measure, ...)
 }
@@ -10,7 +10,7 @@ measure_tokens(tokens, token_measure, ...)
 \item{tokens}{A tibble of tokens in the format returned by `split_tokens`.}
 
 \item{token_measure}{A function which accepts a token (along with
-additional parameters in `...`) and returns a numeric measurement vector.}
+additional parameters `...`) and returns a numeric measurement vector.}
 
 \item{...}{Additional parameters to pass to `token_measure`.}
 }
@@ -19,5 +19,5 @@ A tibble, as returned by `split_tokens`, along with a new column
 `measurement`, as returned by `token_measure` for each token.
 }
 \description{
-Measure tokens using the given function.
+Measure tokens using the given token measurement function.
 }

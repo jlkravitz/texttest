@@ -4,7 +4,7 @@
 #' By default, this splits the response into words.
 #'
 #' @param response A vector of character strings.
-#' @param ... Additional parameters passed to `tidytext::unnest_tokens`.
+#' @inheritDotParams tidytext::unnest_tokens -tbl -output -input
 #' @return A tibble with a column of tokens parsed from `response`.
 #' @export
 split_tokens <- function(response, ...) {
@@ -13,11 +13,11 @@ split_tokens <- function(response, ...) {
     tidytext::unnest_tokens(.data$token, response, ...)
 }
 
-#' Measure tokens using the given function.
+#' Measure tokens using the given token measurement function.
 #'
 #' @param tokens A tibble of tokens in the format returned by `split_tokens`.
 #' @param token_measure A function which accepts a token (along with
-#' additional parameters in `...`) and returns a numeric measurement vector.
+#' additional parameters `...`) and returns a numeric measurement vector.
 #' @param ... Additional parameters to pass to `token_measure`.
 #' @return A tibble, as returned by `split_tokens`, along with a new column
 #' `measurement`, as returned by `token_measure` for each token.
@@ -42,7 +42,7 @@ pool_measured_tokens <- function(tokens, token_pool) {
     token_pool()
 }
 
-#' Build typical measurement function using split/measure/pool approach.
+#' Build tokenized expert-driven measurement, using tokenize/measure/pool approach.
 #'
 #' @param token The token to split (default: words). See `tidytext::unnest_tokens`
 #' for more options.

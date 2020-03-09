@@ -1,5 +1,5 @@
-#' Classifier test statistic which returns the concordance (C-statistic, AUC, etc.)
-#' of a classifier trained on measurements to predict treatment arm.
+#' Classifier test statistic which returns the concordance of a classifier
+#' trained on measurements to predict treatment arm.
 #' @inheritParams stat_summed_mean_difference
 #' @importFrom rlang .data
 #' @export

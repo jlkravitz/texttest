@@ -1,4 +1,4 @@
-# Check equality between `token` and tokens in `target`.
+# Check equality between `token` and tokens in `targets`.
 binary_count <- function(token, targets) {
   as.integer(targets == token)
 }

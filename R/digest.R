@@ -23,6 +23,8 @@ digest <- function(data, test_formula, stat_compute, num_permutations = 1000) {
   }
 }
 
+# Helper function for `digest`. This function only accepts a formula for the
+# `test_formula` variable; `digest` accepts a list of formulas as well.
 digest_ <- function(test_formula, data, stat_compute, num_permutations) {
   data <- set_trmt(data, test_formula)
 

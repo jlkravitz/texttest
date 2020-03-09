@@ -2,7 +2,7 @@
 % Please edit documentation in R/measure_utils.R
 \name{build_measure}
 \alias{build_measure}
-\title{Build typical measurement function using split/measure/pool approach.}
+\title{Build tokenized expert-driven measurement, using tokenize/measure/pool approach.}
 \usage{
 build_measure(token, token_measure, token_pool)
 }
@@ -19,5 +19,5 @@ A function which returns a numeric measurement vector given a text
 response.
 }
 \description{
-Build typical measurement function using split/measure/pool approach.
+Build tokenized expert-driven measurement, using tokenize/measure/pool approach.
 }

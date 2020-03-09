@@ -9,7 +9,27 @@ split_tokens(response, ...)
 \arguments{
 \item{response}{A vector of character strings.}
 
-\item{...}{Additional parameters passed to `tidytext::unnest_tokens`.}
+\item{...}{
+  Arguments passed on to \code{\link[tidytext:unnest_tokens]{tidytext::unnest_tokens}}
+  \describe{
+    \item{\code{token}}{Unit for tokenizing, or a custom tokenizing function. Built-in
+options are "words" (default), "characters", "character_shingles", "ngrams",
+"skip_ngrams", "sentences", "lines", "paragraphs", "regex", "tweets"
+(tokenization by word that preserves usernames, hashtags, and URLS ), and
+"ptb" (Penn Treebank). If a function, should take a character vector and
+return a list of character vectors of the same length.}
+    \item{\code{format}}{Either "text", "man", "latex", "html", or "xml". If not text,
+this uses the hunspell tokenizer, and can tokenize only by "word"}
+    \item{\code{to_lower}}{Whether to convert tokens to lowercase. If tokens include
+URLS (such as with \code{token = "tweets"}), such converted URLs may no
+longer be correct.}
+    \item{\code{drop}}{Whether original input column should get dropped. Ignored
+if the original input and new output column have the same name.}
+    \item{\code{collapse}}{Whether to combine text with newlines first in case tokens
+(such as sentences or paragraphs) span multiple lines. If NULL, collapses
+when token method is "ngrams", "skip_ngrams", "sentences", "lines",
+"paragraphs", or "regex".}
+  }}
 }
 \value{
 A tibble with a column of tokens parsed from `response`.

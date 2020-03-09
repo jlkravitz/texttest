@@ -2,8 +2,8 @@
 % Please edit documentation in R/stat_classifier.R
 \name{stat_classifier}
 \alias{stat_classifier}
-\title{Classifier test statistic which returns the concordance (C-statistic, AUC, etc.)
-of a classifier trained on measurements to predict treatment arm.}
+\title{Classifier test statistic which returns the concordance of a classifier
+trained on measurements to predict treatment arm.}
 \usage{
 stat_classifier(data)
 }
@@ -11,6 +11,6 @@ stat_classifier(data)
 \item{data}{A data frame which contains columns `trmt` and `measurement`.}
 }
 \description{
-Classifier test statistic which returns the concordance (C-statistic, AUC, etc.)
-of a classifier trained on measurements to predict treatment arm.
+Classifier test statistic which returns the concordance of a classifier
+trained on measurements to predict treatment arm.
 }

@@ -14,5 +14,5 @@ A new data frame, with measurement vectors spread across multiple
 columns.
 }
 \description{
-Make each element in measurement vectors a new column.
+This function is helpful for use with R modelling functions, e.g. `lm`.
 }
