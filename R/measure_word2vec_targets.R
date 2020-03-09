@@ -1,15 +1,7 @@
 # Compute cosine similarity between `token` and tokens in `targets`.
 cosine_similarity <- function(token, targets, embeddings) {
-  compute <- function(target) {
-    if_else(
-      embeddings$`__contains__`(target) & embeddings$`__contains__`(token) & !("georgian" %in% c(token, target)),
-      embeddings$similarity(target, token),
-      0
-    )
-  }
-
   targets %>%
-    purrr::map_dbl(compute)
+    purrr::map_dbl(embeddings$similarity, token)
 }
 
 #' Measure free text response as a pooled set of cosine similarity between
