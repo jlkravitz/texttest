@@ -30,4 +30,6 @@ Config/reticulate:
       list(package = "pymagnitude", pip = TRUE)
     )
   )
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.0
+Suggests: 
+    testthat

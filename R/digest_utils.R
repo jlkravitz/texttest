@@ -9,14 +9,22 @@
 #' @export
 spread_measurements <- function(data) {
   data %>%
+    dplyr::mutate(targets = purrr::map(.data$measurement, fetch_names)) %>%
     dplyr::mutate(id = dplyr::row_number()) %>%
-    tidyr::unnest(.data$measurement) %>%
-    dplyr::group_by(.data$id) %>%
-    dplyr::mutate(col_name = seq_along(.data$id)) %>%
-    dplyr::ungroup() %>%
+    tidyr::unnest(c(.data$measurement, .data$targets)) %>%
+    dplyr::rename(target = .data$targets) %>%
     tidyr::pivot_wider(
-      names_from = .data$col_name,
+      names_from = .data$target,
       values_from = "measurement"
     ) %>%
     dplyr::select(-.data$id)
+}
+
+fetch_names <- function(measurement) {
+  targets <- names(measurement)
+  if (is.null(targets)) {
+    seq_along(measurement) %>% as.character()
+  } else {
+    targets
+  }
 }

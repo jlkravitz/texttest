@@ -10,17 +10,23 @@ stat_classifier <- function(data) {
     spread_measurements() %>%
     dplyr::mutate(trmt = as.integer(.data$trmt))
 
-  InformationValue::Concordance(
-    data$trmt,
-    stats::predict(
-      suppressWarnings(
-        stats::glm(
-          trmt ~ .,
-          data = data,
-          family = stats::binomial(link = "logit")
-        )
-      ),
-      type = "response"
+  model <- suppressWarnings(
+    stats::glm(
+      trmt ~ .,
+      data = data,
+      family = stats::binomial(link = "logit")
     )
-  )$Concordance
+  )
+
+  tibble::tibble(
+    stat =
+      InformationValue::Concordance(
+        data$trmt,
+        stats::predict(
+          model,
+          type = "response"
+        )
+      )$Concordance,
+    metadata = list(model)
+  )
 }

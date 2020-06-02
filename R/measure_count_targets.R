@@ -1,6 +1,8 @@
 # Check equality between `token` and tokens in `targets`.
 binary_count <- function(token, targets) {
-  as.integer(targets == token)
+  indicators <- as.integer(targets == token)
+  names(indicators) <- targets
+  indicators
 }
 
 #' Measure free text response as a pooled set of target token counts.

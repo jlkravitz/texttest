@@ -6,7 +6,9 @@ stat_summed_mean_difference <- function(data) {
   data %>%
     dplyr::mutate_at(dplyr::vars(.data$measurement), purrr::map_dbl, sum) %>%
     dplyr::summarize(
-      mean(.data$measurement[.data$trmt]) - mean(.data$measurement[!.data$trmt])
-    ) %>%
-    dplyr::pull()
+       stat =
+         mean(.data$measurement[.data$trmt]) -
+          mean(.data$measurement[!.data$trmt]),
+       metadata = list(.data$measurement)
+    )
 }

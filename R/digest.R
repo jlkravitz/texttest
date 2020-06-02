@@ -33,9 +33,10 @@ digest_ <- function(test_formula, data, stat_compute, num_permutations) {
 
   tibble::tibble(
     test = format(test_formula),
-    stat_observed = stat_compute(data),
+    stat_observed = observed_stat$stat,
+    metadata_observed = observed_stat$metadata,
     stats_permuted = list(permuted_stats),
-    p_val = compute_p_val(observed_stat, permuted_stats)
+    p_val = compute_p_val(observed_stat$stat, pull(permuted_stats, stat))
   )
 }
 
@@ -60,11 +61,12 @@ set_trmt <- function(data, test_formula) {
 # Compute statistic for permutations of treatment assignment.
 #' @importFrom rlang .data
 compute_permuted_stats <- function(data, stat_compute, num_permutations = 1000) {
-  purrr::map_dbl(
+  purrr::map_dfr(
     1:num_permutations,
     ~ data %>%
       dplyr::mutate_at(dplyr::vars(.data$trmt), sample) %>%
-      stat_compute()
+      stat_compute(),
+    .id = "permutation_id"
   )
 }
 
